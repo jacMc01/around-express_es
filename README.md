@@ -1,6 +1,6 @@
 # Around the U.S. Back End  
     
-Ea una aplicación web desarrollada con Node.js y el framework Express. El primer archivo es el archivo principal de la aplicación, en el que se importa el módulo express para crear una instancia de la aplicación y configurar las rutas de la API. Se importan dos módulos adicionales, './routes/users' y './routes/cards', que se utilizan para manejar las solicitudes a las rutas '/users' y '/cards', respectivamente. También se establece un manejador para todas las solicitudes que no coinciden con ninguna de las rutas anteriores, que devuelve un mensaje de error indicando que el recurso solicitado no ha sido encontrado. Finalmente, se inicia el servidor escuchando en el puerto especificado en la variable de entorno 'port' o en el puerto 3000 si no se especifica.
+Es una aplicación web desarrollada con Node.js y el framework Express. El primer archivo es el archivo principal de la aplicación, en el que se importa el módulo express para crear una instancia de la aplicación y configurar las rutas de la API. Se importan dos módulos adicionales, './routes/users' y './routes/cards', que se utilizan para manejar las solicitudes a las rutas '/users' y '/cards', respectivamente. También se establece un manejador para todas las solicitudes que no coinciden con ninguna de las rutas anteriores, que devuelve un mensaje de error indicando que el recurso solicitado no ha sido encontrado. Finalmente, se inicia el servidor escuchando en el puerto especificado en la variable de entorno 'port' o en el puerto 3000 si no se especifica.
 
 El segundo archivo es un módulo específico para manejar solicitudes HTTP a la ruta '/users'. Contiene dos rutas, una para obtener todos los usuarios y otra para obtener un usuario específico por ID. Utiliza el método 'fs.readFile' para leer el archivo JSON de usuarios y luego utiliza la función 'JSON.parse' para convertirlo en un objeto Javascript. Luego, utiliza el método 'find' para buscar el usuario específico en el objeto y devolverlo en la respuesta HTTP. Si no se encuentra el usuario, se devuelve un mensaje de error indicando que el ID de usuario no ha sido encontrado. Este módulo es exportado para ser utilizado en otro lugar en la aplicación.
 
@@ -28,6 +28,7 @@ https://www.loom.com/i/e80145fd4f9c48579f14e21dd5310d02
 
 https://www.loom.com/i/184728a2ba864ac89e65ee1d26d7f1cf
 
+https://www.loom.com/i/e7e9e6c83a994f89940585be79f273de
 
 Video demostración/ Video demonstration
 
