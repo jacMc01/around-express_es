@@ -1,6 +1,5 @@
 const fs = require('fs');
 const path = require('path');
-const { json } = require('stream/consumers');
 
 const resolvedPath = path.resolve(__dirname,"..", 'data', 'users.json');
 const parentDir = path.dirname(resolvedPath);
