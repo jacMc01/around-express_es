@@ -1,21 +1,14 @@
-const fs = require('fs');
-const path = require('path');
+const express = require('express');
+const cardsAPI = express.Router();
 
-const resolvedPath = path.resolve(__dirname,"..", 'data', 'cards.json');
-const parentDir = path.dirname(resolvedPath);
-const filePath = path.join(parentDir, 'cards.json');
+const {
+  getCards,
+  createCard,
+  deleteCard
+} = require('../controllers/cards');
 
-const cardsAPI = (request, response) => {
-  fs.readFile(filePath, 'utf8', (error, data) => {
-    if (error) {
-      console.error(error);
-      response.status(500).send('Error al leer el archivo de tarjetas (cards)');
-      return;
-    }
-    else{
-      response.send(data);
-    }
-  });
-};
+cardsAPI.get('/', getCards);
+cardsAPI.post('/', createCard);
+cardsAPI.delete('/:cardId', deleteCard);
 
 module.exports = cardsAPI;

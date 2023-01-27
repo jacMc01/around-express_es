@@ -1,27 +1,31 @@
+const mongoose = require('mongoose');
 const express = require('express');
+
+
+
 const { port = 3000 } = process.env;
 const app = express();
-const mongoose = require('mongoose');
-
-const MONGODB_URI = 'mongodb://localhost:27017/aroundb';
-
-mongoose.connect(MONGODB_URI, {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useFindAndModify: false
-});
-
-const db = mongoose.connection;
-
-db.on('error', (error) => console.error(error));
-db.once('open', () => console.log('Conectado a MongoDB'));
 
 const usersAPI = require('./routes/users');
 const cardsAPI = require('./routes/cards');
 
+app.use((req, res, next) => {
+  req.user = {
+    _id: '5d8b8592978f8bd833ca8133'
+  };
+
+  next();
+});
+
 app.use('/users', usersAPI);
 app.use('/cards', cardsAPI);
 app.all('*', (req, res) => {res.status(404).json({"message": "Recurso solicitado no encontrado"});});
+
+const DB_URI = 'mongodb://localhost:27017/aroundb';
+
+mongoose.connect(DB_URI, () => {
+  console.log('Connected DB!')
+});
 
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
