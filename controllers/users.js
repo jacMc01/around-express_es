@@ -2,13 +2,12 @@ const user = require('../models/user');
 const url = require('url');
 
 function getUser(req, res){
-  const reqUrl = url.parse(req.url, true);
-    console.log(`URL: ${reqUrl.protocol}//${reqUrl.hostname}:3000${reqUrl.pathname}`);
+    console.log(`URL: http://localhost:3000${req.url}`);
     res.json({ message: 'Conectado correctamente a la URL http://localhost:3000/users' });
 
-  return user.find({})
-  .then((users) => res.send({data: users}))
-  .catch((err) => res.status(500).send({message: `No se encuentra la pagina`}))
+    return user.find({})
+    .then((users) => res.send({data: users}))
+    .catch((err) => res.status(500).send({message: `No se encuentra la pagina`}))
 };
 
 function getUserById(req, res){
@@ -20,16 +19,18 @@ function getUserById(req, res){
   })
 }
 
-function createUser(req, res){
+function createUser(req, res) {
   if (!req.body) {
-    res.status(400).send({message: 'Faltan datos para crear el usuario 333'});
+    res.status(400).send({ message: 'Faltan datos para crear el usuario' });
     return;
   }
-  const {name, about, avatar}  = req.body;
 
-  user.create({name, about, avatar})
-  .then((user) => res.send({data: user}))
-  .catch((err) => res.status(400).send({message: `Hubo un error!`}));
+  const { name, about, avatar } = req.body;
+  const user = new User({ name, about, avatar });
+
+  user.save()
+    .then((user) => res.send({ data: user }))
+    .catch((err) => res.status(400).send({ message: 'Hubo un error al guardar el usuario', error: err }));
 }
 
 function addProfile(req, res){

@@ -1,9 +1,9 @@
-const cards = require('../models/user');
-const url = require('url');
+const cards = require('../models/card');
+const user = require('../models/user')
+const mongoose = require('mongoose')
 
 function getCards(req, res){
-    const reqUrl = url.parse(req.url, true);
-    console.log(`URL: ${reqUrl.protocol}//${reqUrl.hostname}:3000${reqUrl.pathname}`);
+    console.log(`URL: http://localhost:3000${req.url}`);
     res.json({ message: 'Conectado correctamente a la URL http://localhost:3000/cards' });
 
   cards.find({})
@@ -12,9 +12,16 @@ function getCards(req, res){
 }
 
 function createCard(req, res){
-  const {name, link} = req.body;
+  if(!req.body.name || !req.body.link){
+    res.status(400).send({error: "Missing required fields name and link"})
+    return;
+  }
 
-  cards.create({name, link, owner: req.user._id})
+  const {name, link} = req.body;
+  console.log(req.body);
+  console.log(req.card)
+
+  cards.create({name, link, owner})
   .then((card) => res.send({data: card}))
   .catch((err) => res.status(400));
 }
